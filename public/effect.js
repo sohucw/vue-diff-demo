@@ -1,10 +1,13 @@
 let activeEffect;
-export const effect = (fn) => {
+export const effect = (fn, options) => {
     const _effect = function () {
         activeEffect = _effect;
-        fn();
+        let res = fn();
+        return res;
     };
     _effect();
+    _effect.optons = options;
+    return _effect;
 };
 const targetMap = new WeakMap();
 export const track = (target, key) => {
@@ -24,6 +27,12 @@ export const trigger = (target, key) => {
     const depsMap = targetMap.get(target);
     const deps = depsMap.get(key);
     deps.forEach((effect) => {
-        effect();
+        var _a;
+        if ((_a = effect.optons) === null || _a === void 0 ? void 0 : _a.scheduler) {
+            effect.optons.scheduler();
+        }
+        else {
+            effect();
+        }
     });
 };

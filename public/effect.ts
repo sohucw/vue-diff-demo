@@ -1,10 +1,16 @@
 let activeEffect;
-export const effect = (fn: Function) => {
+interface Options {
+    scheduler?: Function;
+}
+export const effect = (fn: Function, options: Options) => {
     const _effect = function () {
         activeEffect = _effect;
-        fn();
+        let res = fn();
+        return res;
     };
     _effect();
+    _effect.optons = options;
+    return _effect;
 };
 
 const targetMap = new WeakMap();
@@ -26,6 +32,10 @@ export const trigger = (target, key) => {
     const depsMap = targetMap.get(target);
     const deps = depsMap.get(key);
     deps.forEach((effect) => {
-        effect();
+        if (effect.optons?.scheduler) {
+            effect.optons.scheduler();
+        } else {
+            effect();
+        }
     });
 };
