@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-content">
-            A组件
+            B组件
         </div>
     </div>
 </template>

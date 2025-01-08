@@ -1,22 +1,55 @@
-
 <template>
-  <div>
-    <h2>父组件</h2>
-    <A ref="aref" :title="name" @on-click="getName" @on-click1="getName1"></A>
-  </div>
+    <div style="display: flex;" >
+      <div @click="handerSwitch(item, index)" :class="[active ===index ? 'active' : '']" class="tabs" v-for="(item, index) in data">
+        <div>{{ item.name }}</div>
+      </div>
+    </div>
+    <component :is="comId"></component>
 </template>
-<script  setup lang="ts">
-import { ref, reactive, watchEffect} from 'vue';
+<script setup lang="ts">
+import { reactive, ref, markRaw, shallowRef } from 'vue';
 import A from './components/A.vue';
-const name = '大伟'
-const aref = ref<InstanceType<typeof A>>();
-const getName = (val: string) => {
-  console.log(val, '来自子组件的参数');
+import B from './components/B.vue';
+import C from './components/C.vue';
+const comId = shallowRef('A');
+const active = ref(0);
+const data = reactive([
+  {
+    name: 'A组件',
+    com:'A'
+  },
+  {
+    name: 'B组件',
+    com:'B'
+  },
+  {
+    name: 'C组件',
+    com:'C'  // __skip__
+  }
+
+])
+const handerSwitch = (item, index) => {
+  comId.value = item.com;
+  console.log(comId);
+  active.value = index;
+
 }
-const getName1 = (val: string) => {
-  console.log(val, '来自子组件的参数');
-}
-aref.value?.open()
+</script>
+<script lang="ts">
+  export default {
+    components: {
+      A,B,C
+    }
+  }
 </script>
 <style scoped>
+.tabs {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+.active {
+  background-color: skyblue;
+}
 </style>

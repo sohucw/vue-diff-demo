@@ -1,7 +1,12 @@
 <template>
     <div class="card">
+        <div class="card-header">
+            <div>标题</div>
+            <div>副标题</div>
+        </div>
         <div class="card-content">
-            A组件
+            内容
+            内容
         </div>
     </div>
 </template>
