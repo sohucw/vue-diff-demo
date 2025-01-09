@@ -1,22 +1,18 @@
 <template>
-  <div>
-    <Dialog>
-      <template #header>
-        <div>具名插槽 header</div>
+    <Suspense>
+      <template #default>
+        <sync></sync>
       </template>
-      <template #default="{data, index}">
-        <div>{{data.name}}---- {{ data.age }}---- {{ index }}</div>
+      <template #fallback>
+          <skeleton></skeleton>
       </template>
-      <template #footer>
-        <div>具名插槽 footer</div>
-      </template>
-    </Dialog>
-  </div>
+    </Suspense>
 </template>
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import Dialog from './components/Dialog/index.vue';
-const name = ref('header');
+import { defineAsyncComponent, reactive, ref } from 'vue';
+import skeleton from './components/skeleton.vue';
+// import sync from './components/sync.vue';
+const sync = defineAsyncComponent(() => import('./components/sync.vue'));
 </script>
 <style scoped>
 .tabs {
