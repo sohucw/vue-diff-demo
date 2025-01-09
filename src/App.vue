@@ -1,27 +1,18 @@
 <template>
-    <Suspense>
-      <template #default>
-        <sync></sync>
-      </template>
-      <template #fallback>
-          <skeleton></skeleton>
-      </template>
-    </Suspense>
+    <div class="parent">
+
+    <el-button  @click="flag = !flag">切换组件</el-button>
+    <keep-alive :max="5">
+        <A v-if="flag"></A>
+        <B v-else></B>
+      </keep-alive>
+    </div>
 </template>
 <script setup lang="ts">
-import { defineAsyncComponent, reactive, ref } from 'vue';
-import skeleton from './components/skeleton.vue';
-// import sync from './components/sync.vue';
-const sync = defineAsyncComponent(() => import('./components/sync.vue'));
+import {ref} from 'vue';
+import A from './components/A.vue';
+import B from './components/B.vue';
+const flag = ref(true);
 </script>
 <style scoped>
-.tabs {
-    border: 1px solid #ccc;
-    padding: 5px 10px;
-    margin: 5px;
-    cursor: pointer;
-}
-.active {
-  background-color: skyblue;
-}
 </style>

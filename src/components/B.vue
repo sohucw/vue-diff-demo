@@ -1,25 +1,29 @@
 <template>
-    <div class="card">
-        <div class="card-content">
-            B组件
-        </div>
-    </div>
+     <h1>B组件</h1>
+    <el-transfer v-model="value" :data="data" />
 </template>
-<script setup lang="ts">
-</script>
 
-<style scoped lang='less'>
-.card {
-    width: 300px;
-    border: 1px solid #ccc;
-    .card-header {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-    }
-    .card-content {
-        padding: 10px;
-    }
+<script lang="ts" setup>
+import { ref } from 'vue';
+
+interface Option {
+    key: number;
+    label: string;
+    disabled: boolean;
 }
-</style>
+
+const generateData = () => {
+    const data: Option[] = [];
+    for (let i = 1; i <= 15; i++) {
+        data.push({
+            key: i,
+            label: `Option ${i}`,
+            disabled: i % 4 === 0,
+        });
+    }
+    return data;
+};
+
+const data = ref<Option[]>(generateData());
+const value = ref([]);
+</script>
