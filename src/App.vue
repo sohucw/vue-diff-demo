@@ -1,21 +1,32 @@
+
 <template>
-  <div>
-    <h2>我是app.vue父组件</h2>
-    <div>isShow: {{ isShow }}</div>
-    <div>textVal: {{ text }}</div>
-    <div><button @click="isShow=!isShow">开关</button></div>
-    <hr/>
-    <vModel v-model:textVal="text" v-model="isShow"></vModel>
+  <div class="btns">
+      <button v-has-show="'order@create'">创建</button>
+      <button v-has-show="'order@edit'">编辑</button>
+      <button v-has-show="'order@del'">删除</button>
   </div>
-</template>
+  </template>
 <script setup lang="ts">
-import vModel from './components/v-model.vue';
-const isShow = ref(true)
-const text = ref('大伟')
+import type {Directive} from 'vue';
+// mock
+const permission = [
+  'order@create',
+  'order@del',
+];
+const vHasShow:Directive<HTMLElement, string> = (el, bindding) => {
+  console.log(el, bindding)
+  if (!permission.includes(bindding.value)) {
+    el.style.display = 'none';
+  }
+
+}
+
 </script>
 
-<style>
-.test {
-  font-size: 20px;
-}
+<style scoped lang='less'>
+.btns {
+    button{
+        margin: 10px;
+    }
+  }
 </style>
