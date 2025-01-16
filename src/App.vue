@@ -1,17 +1,16 @@
 <template>
   <div>
-      <div v-reszie="aaa" id="box" >
-        <div style="width: 400px; height: 500px;">
-          test
-        </div>
-      </div>
+    {{ $env }}
+    {{ $formate.format('是个boy') }}
   </div>
 </template>
 
 <script setup lang='ts'>
 import type { Directive } from 'vue';
 // import useResize from 'constom-hooks';
-
+const app = getCurrentInstance();
+// console.log(app?.proxy?.$formate.format('是个boy'));
+console.log(app);
 const aaa=(e: any) => {
   console.log(e)
 }
