@@ -1,14 +1,27 @@
 <template>
   <div>
-      <div >
-          <img  v-for ="item in arr " height="500"  width="360" alt="" v-lazy="item">
+      <div v-reszie="aaa" id="box" >
+        <div style="width: 400px; height: 500px;">
+          test
+        </div>
       </div>
   </div>
 </template>
 
 <script setup lang='ts'>
 import type { Directive } from 'vue';
+// import useResize from 'constom-hooks';
 
+const aaa=(e: any) => {
+  console.log(e)
+}
+
+// onMounted(() => {
+//   useResize(document.querySelector('#box'), (e: any) => {
+//     console.log(e)
+//   })
+// }
+// )
 // glob 是懒加载的方式
 // let modules = {
 //  'xxxx': ()=> import('xxx')
@@ -33,4 +46,10 @@ let vLazy: Directive<HTMLImageElement, string> = async (el, binding) => {
 }
 </script>
 
-<style scoped lang='less'></style>
+<style scoped lang='less'>
+#box {
+  border: 1px solid #ccc;
+  resize: both;
+  overflow: hidden;
+}
+</style>
