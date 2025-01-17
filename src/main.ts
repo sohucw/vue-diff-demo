@@ -5,26 +5,26 @@ import 'element-plus/dist/index.css';
 import App from './App.vue';
 import Card from './components/Card.vue';
 // import useResize from 'constom-hooks';
-
-const app = createApp(App);
-app.config.globalProperties.$env = 'dev';
-app.config.globalProperties.$formate ={
-    format<T>(str: T) {
-        return 'dawei-' + str;
-    }
-
-}
-// app.use(useResize);
-app.use(ElementPlus);
+import Loading from './components/Loading/index';
+import { MyUse } from './myuse';
+export const app = createApp(App);
+MyUse(Loading);
+// app.use(Loading);
+// app.use(ElementPlus);
+// app.use('router')
+// app.use('vuex')
+// app.use('createPinia')
 app.component('Card', Card);
 app.mount('#app');
 
-type Filter = {
-    format<T>(str: T): string;
+type Load = {
+    show: () => void;
+    hide: () => void;
 };
+//编写ts loading 声明文件放置报错 和 智能提示
 declare module 'vue' {
     export interface ComponentCustomProperties {
-        $formate: Filter;
-        $env: string;
+        $loading: Load;
     }
 }
+ 
