@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>proxy</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="module">
+        import {reactive} from './reactive.js';
+        import {effect} from './effect.js';
+
+        const user =reactive({name: 'dawei', age: 30, foo: {bar: {xx: 123}}}) ;
+
+        effect(() => {
+            document.querySelector('#app').innerHTML = `${user.name} - ${user.age} - ${user.foo.bar.xx}`
+        });
+
+        setTimeout(() => {
+            user.name= 'dawei111'
+            setTimeout(() => {
+                user.age= 10;
+                setTimeout(() => {
+                    user.foo.bar.xx =666;
+                }
+            , 1000);
+            },1000);
+        }, 2000);
+    </script>
+</body>
+</html>
