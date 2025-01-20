@@ -1,23 +1,18 @@
 <template>
-  <div>
-  </div>
+  <main>
+    <el-input class="ipt"></el-input>
+  </main>
 </template>
 
 <script setup lang='ts'>
-const instance = getCurrentInstance();
-console.log(instance?.proxy)
-instance?.proxy?.$loading.show();
-
-setTimeout(() => {
-  instance?.proxy?.$loading.hide();
-
-}, 3000);
 </script>
 
-<style scoped lang='less'>
-#box {
-  border: 1px solid #ccc;
-  resize: both;
-  overflow: hidden;
+<style scoped lang="less">
+.ipt {
+  width: 300px;
+  margin: 150px;
+  :deep(.el-input__inner) {
+    background-color: red;
+  }
 }
 </style>
